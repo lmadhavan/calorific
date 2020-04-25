@@ -60,4 +60,24 @@ export default class MacroPlan {
     _computeGrams(percent, caloriesPerGram) {
         return Math.floor(this._calories * (percent / 100) / caloriesPerGram);
     }
+
+    toJSON() {
+        return JSON.stringify({
+            calories: this._calories,
+            carbsPercent: this._carbsPercent,
+            fatPercent: this._fatPercent,
+            proteinPercent: this._proteinPercent
+		});
+	}
+
+    static fromJSON(json) {
+        let data = JSON.parse(json);
+
+        let plan = new MacroPlan();
+        plan._calories = data.calories;
+        plan._carbsPercent = data.carbsPercent;
+        plan._fatPercent = data.fatPercent;
+        plan._proteinPercent = data.proteinPercent;
+        return plan;
+	}
 }
