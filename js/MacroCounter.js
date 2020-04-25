@@ -1,9 +1,8 @@
 import * as MacroConstants from './MacroConstants.js';
 
-/** Tracks actual calories and macros against a target plan. */
+/** Tracks actual calories and macros. */
 export default class MacroCounter {
-    constructor(plan) {
-        this._plan = plan;
+    constructor() {
         this._calories = 0;
         this._fatGrams = 0;
         this._proteinGrams = 0;
@@ -17,8 +16,8 @@ export default class MacroCounter {
         this._calories = value;
     }
 
-    get caloriesTargetPercent() {
-        return this._toPercent(this.calories / this._plan.calories);
+    caloriesTargetPercent(plan) {
+        return this._toPercent(this.calories / plan.calories);
     }
 
     get carbsGrams() {
@@ -29,8 +28,8 @@ export default class MacroCounter {
         return this.calories - this.fatCalories - this.proteinCalories;
     }
 
-    get carbsTargetPercent() {
-        return this._toPercent(this.carbsGrams / this._plan.carbsGrams);
+    carbsTargetPercent(plan) {
+        return this._toPercent(this.carbsGrams / plan.carbsGrams);
     }
 
     get fatGrams() {
@@ -45,8 +44,8 @@ export default class MacroCounter {
         return this._fatGrams * MacroConstants.CALORIES_PER_GRAM_FAT;
     }
 
-    get fatTargetPercent() {
-        return this._toPercent(this.fatGrams / this._plan.fatGrams);
+    fatTargetPercent(plan) {
+        return this._toPercent(this.fatGrams / plan.fatGrams);
     }
 
     get proteinGrams() {
@@ -61,8 +60,8 @@ export default class MacroCounter {
         return this._proteinGrams * MacroConstants.CALORIES_PER_GRAM_PROTEIN;
     }
 
-    get proteinTargetPercent() {
-        return this._toPercent(this.proteinGrams / this._plan.proteinGrams);
+    proteinTargetPercent(plan) {
+        return this._toPercent(this.proteinGrams / plan.proteinGrams);
     }
 
     get isValid() {
@@ -72,4 +71,22 @@ export default class MacroCounter {
     _toPercent(value) {
         return Math.floor(value * 100);
     }
+
+    toJSON() {
+        return JSON.stringify({
+            calories: this._calories,
+            fatGrams: this._fatGrams,
+            proteinGrams: this._proteinGrams
+		});
+	}
+
+    static fromJSON(json) {
+        let data = JSON.parse(json);
+        
+        let counter = new MacroCounter();
+        counter._calories = data.calories;
+        counter._fatGrams = data.fatGrams;
+        counter._proteinGrams = data.proteinGrams;
+        return counter;
+	}
 }
