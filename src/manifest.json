@@ -1,0 +1,16 @@
+{
+  "name": "Calorific",
+  "description": "Track your macros",
+  "categories": ["fitness", "food"],
+  "icons": [
+    {
+      "src": "icon.png",
+      "type": "image/png",
+      "sizes": "192x192 512x512"
+    }
+  ],
+  "start_url": "index.html",
+  "background_color": "#FFFFFF",
+  "display": "standalone",
+  "theme_color": "#00A5CB"
+}

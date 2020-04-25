@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/png" href="icon.png">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+    <title>Calorific</title>
+</head>
+<body>
+    <div class="container p-0">
+        <nav class="navbar navbar-expand navbar-light bg-light">
+            <div class="navbar-brand">
+                Calorific
+            </div>
+
+            <ul class="nav nav-pills ml-auto" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="track-tab" data-toggle="tab" href="#track" role="tab" aria-controls="track" aria-selected="true">Track</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="plan-tab" data-toggle="tab" href="#plan" role="tab" aria-controls="plan" aria-selected="false">Plan</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="help-tab" data-toggle="tab" href="#help" role="tab" aria-controls="help" aria-selected="false"><i class="fa fa-question-circle"></i></a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="tab-content p-3">
+            <div class="tab-pane fade show active" id="track" role="tabpanel" aria-labelledby="track-tab">
+                <div id="calorie-counter" class="row">
+                    <div class="col-2">
+                        <button class="btn btn-sm btn-outline-primary counter-decrement" title="- 50"><i class="fa fa-minus"></i></button>
+                    </div>
+                    <div class="col-8">
+                        <h3>
+                            Calories: <span class="counter-label"></span>
+                            <i id="invalid-calories-warning" class="fa fa-exclamation-triangle text-danger"
+                               data-toggle="tooltip" title="Macros add up to more calories than you have tracked."></i>
+                        </h3>
+                        <div class="progress" style="height: 1.5em">
+                            <div class="progress-bar counter-percent" role="progressbar"></div>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <button class="btn btn-sm btn-outline-primary counter-increment" title="+ 100"><i class="fa fa-plus"></i></button>
+                    </div>
+                </div>
+
+                <hr>
+
+                <div id="carbs-counter" class="row">
+                    <div class="col-2">
+                    </div>
+                    <div class="col-8">
+                        <h5>Carbs: <span class="counter-label"></span></h5>
+                        <div class="progress" style="height: .4em">
+                            <div class="progress-bar counter-percent" role="progressbar"></div>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                    </div>
+                </div>
+                
+                <hr>
+
+                <div id="protein-counter" class="row">
+                    <div class="col-2">
+                        <button class="btn btn-sm btn-outline-primary counter-decrement" title="- 5"><i class="fa fa-minus"></i></button>
+                    </div>
+                    <div class="col-8">
+                        <h5>Protein: <span class="counter-label"></span></h5>
+                        <div class="progress" style="height: .4em">
+                            <div class="progress-bar counter-percent" role="progressbar"></div>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <button class="btn btn-sm btn-outline-primary counter-increment" title="+ 10"><i class="fa fa-plus"></i></button>
+                    </div>
+                </div>
+
+                <hr>
+
+                <div id="fat-counter" class="row">
+                    <div class="col-2">
+                        <button class="btn btn-sm btn-outline-primary counter-decrement" title="- 5"><i class="fa fa-minus"></i></button>
+                    </div>
+                    <div class="col-8">
+                        <h5>Fat: <span class="counter-label"></span></h5>
+                        <div class="progress" style="height: .4em">
+                            <div class="progress-bar counter-percent" role="progressbar"></div>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <button class="btn btn-sm btn-outline-primary counter-increment" title="+ 10"><i class="fa fa-plus"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="plan" role="tabpanel" aria-labelledby="plan-tab">
+                <form>
+                    <div class="form-group row">
+                        <h5 class="col-8">Target calories</h5>
+                    </div>
+
+                    <div class="form-group">
+                        <input id="calorie-target" class="col-4 form-control form-control-lg" type="number" value="">
+                    </div>
+
+                    <br>
+
+                    <div class="form-group row">
+                        <h5 class="col-8">
+                            Target macros
+                            <i id="invalid-macros-warning" class="fa fa-exclamation-triangle text-danger"
+                               data-toggle="tooltip" title="Macro percentages do not add up to 100%."></i>
+                        </h5>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-3 col-form-label" for="carb-target">Carbs</label>
+                        <div class="col-4 input-group">
+                            <input id="carbs-target" class="form-control" type="number" min="0" max="100">
+                            <div class="input-group-append">
+                                <div class="input-group-text">%</div>
+                            </div>
+                        </div>
+                        <small id="carbs-target-grams" class="col-5 form-text text-muted" style="margin-top:.75em"></small>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-3 col-form-label" for="protein-target">Protein</label>
+                        <div class="col-4 input-group">
+                            <input id="protein-target" class="form-control" type="number" min="0" max="100">
+                            <div class="input-group-append">
+                                <div class="input-group-text">%</div>
+                            </div>
+                        </div>
+                        <small id="protein-target-grams" class="col-5 form-text text-muted" style="margin-top:.75em"></small>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-3 col-form-label" for="fat-target">Fat</label>
+                        <div class="col-4 input-group">
+                            <input id="fat-target" class="form-control" type="number" min="0" max="100">
+                            <div class="input-group-append">
+                                <div class="input-group-text">%</div>
+                            </div>
+                        </div>
+                        <small id="fat-target-grams" class="col-5 form-text text-muted" style="margin-top:.75em"></small>
+                    </div>
+                </form>
+            </div>
+
+            <div class="tab-pane fade" id="help" role="tabpanel" aria-labelledby="help-tab">
+                <dl>
+                    <dt>What is Calorific?</dt>
+                    <dd>
+                        Calorific is a simple app that helps you track your macros.
+                        Set your targets in the <em>Plan</em> tab, then switch to the <em>Track</em> tab and start tracking your calories.
+                        The app will show you how you're progressing towards your daily targets and whether you are under/over for each macronutrient.
+                    </dd>
+
+                    <dt>Where is my data stored?</dt>
+                    <dd>
+                        All your data is stored locally on your device. This data will persist across sessions but will be deleted if you clear "website data" in your browser.
+                    </dd>
+
+                    <dt>Can I download the app?</dt>
+                    <dd>
+                        Calorific is a web app that does not need to be downloaded and installed. For easy access on mobile devices,
+                        you can use the <em>Add to Home Screen</em> feature in your browser to create an icon on your home screen.
+                    </dd>
+                </dl>
+
+                <hr>
+
+                <small class="text-muted">
+                    Version 1.0<br>
+                    Copyright &copy; 2020 Madhavan Lakshminarayanan
+                </small>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="js/main.js" type="module"></script>
+</body>
+</html>
